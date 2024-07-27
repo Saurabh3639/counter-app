@@ -4,6 +4,7 @@
 ```bash
 cd counter-app
 npx create-next-app@latest .
+npm i react-icons
 npm run dev
 ```
 
