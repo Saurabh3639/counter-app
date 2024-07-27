@@ -4,17 +4,8 @@ import { useEffect, useState } from "react";
 import { GrPowerReset } from "react-icons/gr";
 
 export default function Home() {
-  // const [count, setCount] = useState(0);
-  // const [maxCount, setMaxCount] = useState(0);
-
-  const [count, setCount] = useState(() => {
-    const savedCount = localStorage.getItem("count");
-    return savedCount ? Number(savedCount) : 0;
-  });
-  const [maxCount, setMaxCount] = useState(() => {
-    const savedMaxCount = localStorage.getItem("maxCount");
-    return savedMaxCount ? Number(savedMaxCount) : 0;
-  });
+  const [count, setCount] = useState(0);
+  const [maxCount, setMaxCount] = useState(0);
 
   const increment = () => {
     if (maxCount == 0) {
@@ -33,6 +24,19 @@ export default function Home() {
   // Calculate the width of the progress bar in percentage
   const progressBarWidth = maxCount > 0 ? (count / maxCount) * 100 : 0;
 
+  // Effect to load the initial count and maxCount from localStorage after component mounts
+  useEffect(() => {
+    const savedCount = localStorage.getItem('count');
+    if (savedCount) {
+      setCount(Number(savedCount));
+    }
+    const savedMaxCount = localStorage.getItem('maxCount');
+    if (savedMaxCount) {
+      setMaxCount(Number(savedMaxCount));
+    }
+  }, []);
+
+  // Effect to save count and maxCount to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem("count", count);
     localStorage.setItem("maxCount", maxCount);
